@@ -1,0 +1,50 @@
+.card{
+    display: inline-block;
+   
+}
+.total{
+    height: 350px;
+    width: 50%;
+    background-color: #7395AE;
+}
+.card_profile{
+    height: 275px;
+}
+.main-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10%;
+}
+.card-name{
+    padding-left: 42%;
+}
+.card-email{
+    padding-left: 20%;
+}
+input[type="file"]{
+     background-color: #d3d3d3;
+    border: none;
+    color: #000;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-family: "Courier New", Courier, monospace;
+    border-radius: 2px;
+}
+button[type="submit"] {
+    background-color: #d3d3d3;
+    border: none;
+    color: #000;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-family: "Courier New", Courier, monospace;
+    border-radius: 2px;
+    width:310px;
+}
+.form-2{
+    margin-left: 50px;
+}

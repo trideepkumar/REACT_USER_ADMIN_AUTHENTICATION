@@ -6,8 +6,14 @@ import Header from './components/Header';
 import Login from './components/Login';
 import Signup from './components/Signup'
 import Home from './components/Home'
+import { useSelector } from 'react-redux';
+
+
+
 
 function App() {
+  const isLoggedIn = useSelector(state => state.isLoggedIn)
+  console.log(isLoggedIn)
   return (
    <React.Fragment>
     <header>
@@ -17,7 +23,7 @@ function App() {
       <Routes>
            <Route path='/login' element={<Login/>}/>
            <Route path='/signup' element={<Signup/>}/>
-           <Route path='/user' element={<Home/>}/>
+         { isLoggedIn &&  <Route path='/user' element={<Home/>}/>}{" "}
       </Routes>
     </main>
    </React.Fragment>

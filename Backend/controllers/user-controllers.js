@@ -66,42 +66,15 @@ const login = async(req,res,next)=>{
       success: true,
       user:  existingUser,
       token: token
-    });
-
-
-    // res.cookie(String(existingUser._id),token,{
-    //   path:'/',
-    //   expires:new Date(Date.now() + 1000*60),
-    //   httpOnly:true,
-    //   sameSite:"lax"
-    // })
-    console.log('finshed login');
-    // return res.status(200).json({message:"successfully logged in!",user:existingUser,token})
-    
+    });    
 }
 
 const verifyToken = async(req,res,next)=>{
-
-  //using httponly cookies
   console.log('verification started');
   const token = req.cookies.token
-  // console.log(cookies);
   if(!token){
     res.status(404).json({message:"No cookie header found"})
   }
-  // const token = cookies.split("=")[1]
-  // console.log(token);
-
-  //verify token using headers
-  // const headers = req.headers[`authorization`];
-  // if(!headers){
-  //   res.status(404).json({message:"No authorization header found"})
-  // }
-  // const token = headers.split(" ")[1];
-
-  // if(!token){
-  //   res.status(404).json({message:"No token found"})
-  // }
   jwt.verify(token,process.env.JWT_SECRET_KEY,(err,user)=>{
     if(err){
       return res.status(400).json({message:'Invalid token found!'})
@@ -129,6 +102,70 @@ const getUser = async(req,res,next)=>{
   return res.status(200).json({user})
 }
 
+// const logout = async(req,res,next)=>{
+//   const cookies = req.cookies
+//   console.log(cookies)
+//   const token = cookies.token
+//   console.log(token)
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
+//     console.log(decoded)
+//     // Token is valid
+// } catch (err) {
+//   console.log(err)
+   
+// }
+// // Clear the cookies
+// res.clearCookie('token')
+// return res.status(200).json({message:"Successfully Logout!"})
+// }
+
+
+const logout = async(req, res, next) => {
+  const cookies = req.cookies;
+  const token = cookies.token;
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    // Token is valid
+    res.clearCookie('token'); // clear cookie by name
+    res.status(200).send('Logout successful'); // send response
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal server error');
+  }
+};
+
+const updateProfile = async(req,res,next)=>{
+  console.log('update');
+  console.log(req.file)
+  console.log(req.id);
+  if(!req.file){
+     return res.json({error: 'Image is required'})
+   }
+   const path = req.file.path.slice(7)
+   const filepath = `http://localhost:3000/${path}`
+   try {
+     await User.findOneAndUpdate({_id: req.id}, {$set:{image: filepath}})
+     console.log("file updated");
+     res.json({success: true, url: filepath})
+   } catch (error) {
+     console.log(error)
+   }
+}
+
+
+exports.signup = signup
+exports.login = login
+exports.verifyToken =verifyToken
+exports.getUser = getUser
+// exports.refreshToken= refreshToken
+exports.logout =logout
+exports.updateProfile = updateProfile
+
+
+
+
+
 // const refreshToken = async(req,res,next)=>{
 //   const cookies = req.headers.cookie;
 //   const preToken = cookies.split("=")[1]
@@ -155,10 +192,4 @@ const getUser = async(req,res,next)=>{
 //     req.id = user.id
 //     next()
 //   })
-// }
-
-exports.signup = signup;
-exports.login = login;
-exports.verifyToken =verifyToken;
-exports.getUser = getUser;
-// exports.refreshToken= refreshToken;
+// }{

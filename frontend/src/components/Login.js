@@ -3,8 +3,11 @@ import { Box } from '@mui/system'
 import { Button, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { authActions } from '../store'
 
 function Login() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
     const[inputs,setInputs] = useState({
         email:"",
@@ -35,7 +38,9 @@ function Login() {
         e.preventDefault()
         // console.log(inputs)
         //send HTTP requests
-        sentRequest().then(()=>{navigate('/user')})
+        sentRequest()
+        .then(()=>dispatch(authActions.login()))
+        .then(()=>{navigate('/user')})
       }
   return (
     <div>
