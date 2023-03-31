@@ -1,0 +1,13 @@
+.body{
+    background-color: #7395AE;
+}
+.landing-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #7395AE;
+    height: 90vh;
+}
+.p-tag{
+    padding-left: 130px;
+}

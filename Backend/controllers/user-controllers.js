@@ -121,19 +121,19 @@ const getUser = async(req,res,next)=>{
 // }
 
 
-const logout = async(req, res, next) => {
-  const cookies = req.cookies;
-  const token = cookies.token;
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    // Token is valid
-    res.clearCookie('token'); // clear cookie by name
-    res.status(200).send('Logout successful'); // send response
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal server error');
-  }
-};
+// const logout = async(req, res, next) => {
+//   const cookies = req.cookies;
+//   const token = cookies.token;
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+//     // Token is valid
+//     res.clearCookie('token'); // clear cookie by name
+//     res.status(200).send('Logout successful'); // send response
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Internal server error');
+//   }
+// };
 
 const updateProfile = async(req,res,next)=>{
   console.log('update');
@@ -159,7 +159,7 @@ exports.login = login
 exports.verifyToken =verifyToken
 exports.getUser = getUser
 // exports.refreshToken= refreshToken
-exports.logout =logout
+// exports.logout =logout
 exports.updateProfile = updateProfile
 
 

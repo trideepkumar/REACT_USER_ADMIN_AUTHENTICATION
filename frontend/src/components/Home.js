@@ -1,6 +1,6 @@
-
 import React, { useEffect,useState,useRef } from 'react'
 import axios from 'axios'
+import Header  from './Header'
 import { Box } from '@mui/system'
 import {MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBCardTitle, MDBCol, MDBContainer, MDBRow} from 'mdb-react-ui-kit'
 import './Home.css'
@@ -13,7 +13,7 @@ function Home() {
   const placeholderImage ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBH5hnE518TNaRZ-GzMfUFxuhMfowd9k9u4Fyg2c-6qXc_WjRzQ7yh1sprT8ivwyw0uWc&usqp=CAU"
   const fileRef = useRef()
   const [user,setUser] = useState()
-  const [image,setImage]=useState('')
+  // const [image,setImage]=useState('')
   const [src,setSrc] = useState({})
   // const [name,setName] = useState('')
   // const refreshToken = async()=>{
@@ -84,15 +84,17 @@ useEffect(() => {
       console.error('Error retrieving user data:', err);
     });
   }
-}, []);
+},[]);
 
  
 
   useEffect(() => {
     getUserDp();
-  }, []);
+  }, [user]);
 
   return (
+    <>
+    <Header/>
     <div>
       {user &&  <Box marginLeft="auto" marginRight="auto" display="flex" flexDirection="column" gap="1rem" justifyContent="center" alignItems="center" marginTop="10%">
       <div className="total">
@@ -102,35 +104,10 @@ useEffect(() => {
           <MDBCol md="9" lg="7" xl="5" className="mt-5">
             <MDBCard className='card_profile' style={{ borderRadius: '15px' }}>
               <MDBCardBody className="p-4">
-              {/* <div className="d-flex text-black">
-                  <div className="flex-shrink-0"> 
-                      <MDBCardImage
-                        // src={placeholderImage}
-                        src= {src.length ? src : placeholderImage}
-                        alt="Userimage"
-                        style={{ width: '200px', height: '200px', borderRadius: '50%' }}
-                        fluid
-                       />
-                  </div>
-                  <div className="flex-grow-1 ml-5 card-name">
-                  <MDBCardTitle>{user?.name}</MDBCardTitle>
-                     </div>
-                     <div className="flex-grow-1 ml-5 card-email">
-                     <MDBCardText>{user?.email}</MDBCardText>
-                     </div>
-                     <div className="flex-grow-1 ml-5 card-email">
-                     <form onSubmit={handleDp} encType='multipart/form-data' >
-                    <input ref={fileRef}  className='img_button 'onChange={(event)=>{ setImage(URL.createObjectURL(event.target.files[0]))}} type="file" accept='image/*' />
-                    <button className='btn btn-outline-secondary btn-sm mt-2 ' type='submit'>Add profile photo </button>
-                    </form>
-                    </div>
-                    </div> */}
                    <div className="d-flex text-black" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
   <div className="flex-shrink-0"> 
     <MDBCardImage
-      src={src.length ? src : placeholderImage}
-      // src='http://localhost:3000/image-1680168096694-780167552prof2.jpeg'
-      // src={placeholderImage}
+      src={src ? src : placeholderImage}
       alt="Userimage"
       style={{ width: '200px', height: '200px', borderRadius: '50%' }}
       fluid
@@ -140,21 +117,21 @@ useEffect(() => {
     <MDBCardTitle>USER : {user?.name}</MDBCardTitle>
     <MDBCardText>EMAIL : {user?.email}</MDBCardText>
     <form onSubmit={handleDp} encType='multipart/form-data'>
-      <input ref={fileRef}  className='img_button ' onChange={(event)=>{ setImage(URL.createObjectURL(event.target.files[0]))}} type="file" accept='image/*' /><br></br>
+      <input ref={fileRef}  className='img_button ' type="file" accept='image/*' /><br></br>
       <button className='btn btn-outline-secondary btn-sm mt-2 ' type='submit'>Add profile photo</button>
     </form>
   </div>
 </div> 
          </MDBCardBody>
-         
-            </MDBCard>
-          </MDBCol>
+         </MDBCard>
+        </MDBCol>
         </MDBRow>
       </MDBContainer>
       </div>
       </Box>
       }
     </div>
+    </>
   )
 }
 
