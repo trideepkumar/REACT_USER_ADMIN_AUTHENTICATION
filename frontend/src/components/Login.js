@@ -3,17 +3,15 @@ import { Box } from '@mui/system'
 import { Button, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { authActions } from '../store'
 import './Login.css'
 
 function Login() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+    const navigate = useNavigate()
     const[inputs,setInputs] = useState({
         email:"",
         password:""
     })
+
     const handleChange = (e) => {
         setInputs((prev) => ({
           ...prev,
@@ -21,7 +19,7 @@ function Login() {
         }))
       }
     
-      const sentRequest = async () => {
+    const sentRequest = async () => {
         try {
           const res = await axios.post('http://localhost:3000/login', {
             email: inputs.email,
@@ -33,16 +31,14 @@ function Login() {
         } catch (err) {
           console.log(err);
         }
-      };
+      }
 
     const handleSubmit = (e)=>{
         e.preventDefault()
-        // console.log(inputs)
-        //send HTTP requests
         sentRequest()
-        .then(()=>dispatch(authActions.login()))
         .then(()=>{navigate('/user')})
       }
+      
   return (
     <>
     {/* <Header/> */}
@@ -52,9 +48,8 @@ function Login() {
              <Typography variant='h3'>Log In</Typography>  
              <TextField name='email' onChange={handleChange} value={inputs.email} type={'email'} placeholder='Email' margin="normal" style={{ width: '30%' }} />
              <TextField name='password' onChange={handleChange} value={inputs.password} placeholder="Password" type="password" margin="normal" style={{ width: '30%' }} />
-             <Button type="submit" variant='contained' style={{ width: '30%', backgroundColor: '#add8e6', color:"white" }}>Login</Button>
+             <Button  type="submit" variant='contained' style={{ width: '30%', backgroundColor: '#add8e6', color:"white" }}>Login</Button>
              <p>Register here ?<Link to='/signup'>Sign Up</Link> </p>
-
             </Box>
         </form>  
     </div>

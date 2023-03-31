@@ -28,7 +28,8 @@ function Header() {
 
     const handleLogout = ()=>{
       console.log('log');
-      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+      // document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+      document.cookie = 'token=; max-age=0; path=/;';
       localStorage.clear()
       navigate('/')
     }

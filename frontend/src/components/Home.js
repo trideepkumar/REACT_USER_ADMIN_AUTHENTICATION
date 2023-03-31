@@ -8,14 +8,12 @@ axios.defaults.withCredentials = true
 
 
 
-
 function Home() {
   const placeholderImage ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBH5hnE518TNaRZ-GzMfUFxuhMfowd9k9u4Fyg2c-6qXc_WjRzQ7yh1sprT8ivwyw0uWc&usqp=CAU"
   const fileRef = useRef()
   const [user,setUser] = useState()
-  // const [image,setImage]=useState('')
   const [src,setSrc] = useState({})
-  // const [name,setName] = useState('')
+
   // const refreshToken = async()=>{
   //   const res = await axios.get("http://localhost:3000/refresh",{
   //     withCredentials:true
@@ -23,6 +21,7 @@ function Home() {
   //   const data = await res.data
   //   return data;
   // }
+
   const sentRequest = async()=>{
       console.log('sent in home works');
       const res = await axios.get('http://localhost:3000/user',{
@@ -34,9 +33,7 @@ function Home() {
       const data = await res.data
       console.log(data);
       localStorage.setItem('authorization.user', JSON.stringify(res.data))
-      return data
-
-     
+      return data;
   }
 
   const handleDp = async(e)=>{
@@ -61,8 +58,7 @@ function Home() {
   }
   
   const getUserDp = async()=>{
-    setSrc(user.image)
-            
+    setSrc(user.image)     
   }
 
 console.log(src+'= mysrc')
