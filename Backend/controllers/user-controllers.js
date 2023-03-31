@@ -62,7 +62,7 @@ const login = async(req,res,next)=>{
       ) ,
       httpOnly: true
     }
-    res.status(201).cookie('token',token,options).json({
+    res.status(200).cookie('token',token,options).json({
       success: true,
       user:  existingUser,
       token: token

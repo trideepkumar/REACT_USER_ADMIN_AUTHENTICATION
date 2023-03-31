@@ -4,9 +4,13 @@ import { Button, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import './Login.css'
+import { useDispatch } from 'react-redux'
+import { setAuth } from '../Actions/AuthActions'
 
 function Login() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     const[inputs,setInputs] = useState({
         email:"",
         password:""
@@ -21,13 +25,19 @@ function Login() {
     
     const sentRequest = async () => {
         try {
-          const res = await axios.post('http://localhost:3000/login', {
+          await axios.post('http://localhost:3000/login', {
             email: inputs.email,
             password: inputs.password,
-          });
-          const data = await res.data;
-          console.log(data);
-          return data;
+          })
+          .then(res=>{
+            console.log(res.status);
+            if(res.status===200){
+              console.log(res.data.token)
+              localStorage.setItem('user', JSON.stringify(res.data.token))
+              dispatch(setAuth())
+              navigate('/user')
+            }
+          })
         } catch (err) {
           console.log(err);
         }
@@ -36,9 +46,8 @@ function Login() {
     const handleSubmit = (e)=>{
         e.preventDefault()
         sentRequest()
-        .then(()=>{navigate('/user')})
       }
-      
+
   return (
     <>
     {/* <Header/> */}

@@ -5,7 +5,7 @@ import { Navigate, Outlet } from "react-router-dom";
 function ProtectedRoute(){
     const authState = useSelector(state => state.authReducer)
     return(
-        !authState ? <Outlet/> : <Navigate to='/login' />
+        authState.auth ? <Outlet/> : <Navigate to='/login' />
     )
 } 
 

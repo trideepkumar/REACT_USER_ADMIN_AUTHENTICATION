@@ -8,22 +8,31 @@ import Landing from './components/Landing';
 import AdminSignin from './components/Admin/AdminSignin';
 // import {Provider , useSelector} from 'react-redux'
 import ProtectedRoute from './Routes/ProtectedRoute';
-import PublicRoutes from './Routes/PublicRoute';
+import PublicRoute from './Routes/PublicRoute';
+import AdminHome from './components/Admin/AdminHome';
+import AdminEdit from './components/Admin/AdminEdit'
+
 
 function App() {
   return (
    <React.Fragment>
     <main>
       <Routes>
-        <Route element={<PublicRoutes/>}>
-        <Route path='/' element={<Landing/>}/>
+     
+        <Route element={<PublicRoute/>}>
+          <Route path='/' element={<Landing/>}/>
            <Route path='/login' element={<Login/>}/>
            <Route path='/signup'element={<Signup/>}/>
         </Route>  
+
         <Route element={<ProtectedRoute/>}>
            <Route path='/user'  element={<Home/>}/>
         </Route>
+
           <Route path='/admin'  element={<AdminSignin/>}/>
+          <Route path='/admin-home' element={<AdminHome/>}/>
+          <Route path='/admin/edit/:id' element={<AdminEdit/>}/>
+
       </Routes>
     </main>
    </React.Fragment>

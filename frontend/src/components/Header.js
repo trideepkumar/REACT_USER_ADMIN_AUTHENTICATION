@@ -3,12 +3,15 @@ import {AppBar, Toolbar, Typography ,Box, Tab,Tabs} from '@mui/material'
 import { Link, useNavigate,  } from 'react-router-dom'
 // import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { setAuth } from '../Actions/AuthActions'
 
 axios.defaults.withCredentials = true
 
 
 function Header() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
   // const dispatch = useDispatch()
     const [value,setValue] = useState()
     const [user,setUser] = useState({})
@@ -26,13 +29,21 @@ function Header() {
 
 
 
-    const handleLogout = ()=>{
-      console.log('log');
-      // document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-      document.cookie = 'token=; max-age=0; path=/;';
-      localStorage.clear()
-      navigate('/')
-    }
+    // const handleLogout = ()=>{
+    //   console.log('log');
+    //   localStorage.removeItem('user')
+    //   dispatch(setAuth())
+    //   navigate('/')
+    // }
+    const handleLogout = () => {
+      console.log('logging out');
+      const user = localStorage.getItem('user');
+      if (user) {
+        localStorage.removeItem('user');
+      }
+      dispatch(setAuth());
+      navigate('/');
+    };
     
 useEffect(()=>{
   const User = JSON.parse(localStorage.getItem('user'))

@@ -8,6 +8,9 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from 'react-router-dom';
+import './Navbar.css'
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,6 +55,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  const navigate = useNavigate()
+  const logout = ()=>{
+    localStorage.removeItem('user')
+     navigate('/admin')
+    } 
+    const login = ()=>{
+      navigate('/admin')
+    }
   return (
     
     <Box sx={{ flexGrow: 1 }}>
@@ -74,6 +85,7 @@ export default function SearchAppBar() {
           >
             MERN ADMIN
           </Typography>
+          
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -83,6 +95,10 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          &nbsp; &nbsp; &nbsp; &nbsp;
+          <div className='d-flex justify-content-end   button-log' >
+             {localStorage.length===0 ? <p className='btn btn-outline-danger m-4 logg' onClick={login} >LogIn</p> :<p onClick={logout} className='btn btn-outline-danger m-4 logg'>Logout</p> } 
+             </div>
         </Toolbar>
       </AppBar>
     </Box>

@@ -32,7 +32,7 @@ function Home() {
       console.log(res.data);
       const data = await res.data
       console.log(data);
-      localStorage.setItem('authorization.user', JSON.stringify(res.data))
+      localStorage.setItem('user', JSON.stringify(res.data))
       return data;
   }
 

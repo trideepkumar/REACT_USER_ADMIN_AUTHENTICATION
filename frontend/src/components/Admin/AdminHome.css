@@ -1,0 +1,16 @@
+.edit{
+    background-color: #3498DB ;
+    width:55px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+.delete{
+    background-color:#EC7063 ;
+    width:55px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}

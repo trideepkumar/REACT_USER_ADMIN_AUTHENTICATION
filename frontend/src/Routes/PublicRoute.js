@@ -4,14 +4,13 @@ import { Navigate, Outlet } from "react-router-dom"
 
 
 
+
 function PublicRoutes(){
-    const authState = useSelector((state) => {
-        return state.authReducer
-    })
-    // console.log(JSON.parse(localStorage.getItem('user')));
-    console.log(authState);
+    const authState = useSelector(state => state.authReducer)
+    console.log(localStorage.getItem('user'))
+    console.log(authState+"1111")
     return(
-        !authState ? <Outlet/> : <Navigate to='/'/>
+        !authState.auth ? <Outlet/> : <Navigate to='/user'/>
     )
 }
 
